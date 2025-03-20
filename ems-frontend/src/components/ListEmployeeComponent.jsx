@@ -1,29 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import { listEmployees } from '../services/EmployeeService'
 
 //ListEmployeeComponent 01.create react functional component-ListEmployeeComponent
 const ListEmployeeComponent = () => {
 
-    //ListEmployeeComponent 02.prepare dummy data(list of employees) to display in an HTML Table
-    const dummyData = [
-        {
-            "id":1,
-            "firstName": "Lihini",
-            "lastName": "Imalsha",
-            "email": "l@gmail.com"
-        },
-        {
-            "id":2,
-            "firstName": "Duleen",
-            "lastName": "Imalsha",
-            "email": "d@gmail.com"
-        },
-        {
-            "id":1,
-            "firstName": "Nesha",
-            "lastName": "Imalsha",
-            "email": "n@gmail.com"
-        }
-    ]
+    //04.Change ListEmployeeComponent to Display Response of the REST API(List of Employees)
+    const[employees, setEmployees] = useState([])
+    
+    useEffect(() => {
+        listEmployees().then((Response) => {
+            setEmployees(Response.data);
+        }).catch(error => {
+            console.error(error);
+        }) 
+
+    }, [])
 
 //ListEmployeeComponent 03.write JSX code to Display List of Employees in HTML Table
   return (
@@ -41,7 +32,7 @@ const ListEmployeeComponent = () => {
             </thead>
             <tbody>
                 {
-                    dummyData.map(employee =>
+                    employees.map(employee =>
                         <tr key={employee.id}>
                             <td>{employee.id}</td>
                             <td>{employee.firstName}</td>
