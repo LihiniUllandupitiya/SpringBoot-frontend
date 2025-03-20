@@ -3,6 +3,7 @@ import './App.css'
 import ListEmployeeComponent from './components/ListEmployeeComponent'
 import HeaderComponent from './components/HeaderComponent'
 import FooterComponent from './components/FooterComponent'
+import { BrowserRouter,Route,Routes } from 'react-router-dom'
 
 function App() {
 
@@ -11,9 +12,18 @@ function App() {
   //04.Import and Use FooterComponent in App Component
   return (
     <>
-      <HeaderComponent />
-      <ListEmployeeComponent />
-      <FooterComponent />
+      <BrowserRouter>
+        <HeaderComponent />
+          <Routes>
+            {/* http://localhost:3000 */}
+            <Route path='/' element = {<ListEmployeeComponent />}></Route>
+
+            {/* http://localhost:3000/employees */}
+            <Route path='/employees' element = {<ListEmployeeComponent />}></Route>
+
+          </Routes>
+        <FooterComponent />
+      </BrowserRouter>
     </>
   )
 }
