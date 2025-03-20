@@ -4,7 +4,7 @@ import ListEmployeeComponent from './components/ListEmployeeComponent'
 
 function App() {
 
-  //04.Import and Use ListEmployeeComponent in App Component
+  //ListEmployeeComponent 04.Import and Use ListEmployeeComponent in App Component
   return (
     <>
       <ListEmployeeComponent />

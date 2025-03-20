@@ -1,9 +1,9 @@
 import React from 'react'
 
-//01.create react functional component-ListEmployeeComponent
+//ListEmployeeComponent 01.create react functional component-ListEmployeeComponent
 const ListEmployeeComponent = () => {
 
-    //02.prepare dummy data(list of employees) to display in an HTML Table
+    //ListEmployeeComponent 02.prepare dummy data(list of employees) to display in an HTML Table
     const dummyData = [
         {
             "id":1,
@@ -25,7 +25,7 @@ const ListEmployeeComponent = () => {
         }
     ]
 
-//03.write JSX code to Display List of Employees in HTML Table
+//ListEmployeeComponent 03.write JSX code to Display List of Employees in HTML Table
   return (
     <div className='container'>
         
