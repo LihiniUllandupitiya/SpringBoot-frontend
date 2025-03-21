@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { listEmployees } from '../services/EmployeeService'
+import { deleteEmployee, listEmployees } from '../services/EmployeeService'
 import { useNavigate } from 'react-router-dom'
 
 //ListEmployeeComponent 01.create react functional component-ListEmployeeComponent
@@ -11,15 +11,16 @@ const ListEmployeeComponent = () => {
     const navigator = useNavigate();
     
     useEffect(() => {
+        getAllEmployees();
+    }, [])
+
+    function getAllEmployees(){
         listEmployees().then((Response) => {
             setEmployees(Response.data);
         }).catch(error => {
             console.error(error);
         }) 
-
-    }, [])
-
-
+    }
 
 
     function addNewEmployee(){
@@ -28,6 +29,16 @@ const ListEmployeeComponent = () => {
 
     function updateEmployee(id){
         navigator(`/edit-employee/${id}`)
+    }
+
+    function removeEmployee(id){
+        console.log(id);
+
+        deleteEmployee(id).then((Response) => {
+            getAllEmployees();
+        }).catch(error => {
+            console.error(error);
+        })
     }
 
 
@@ -60,7 +71,10 @@ const ListEmployeeComponent = () => {
                             <td>{employee.email}</td>
                             <td>
                                 {/*01.Add the button for actions(update,delete) */}
-                                <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
+                                <button className='btn btn-dark' onClick={() => updateEmployee(employee.id)}>Update</button>
+                                <button className='btn btn-danger' onClick={() => removeEmployee(employee.id)}
+                                    style={{marginLeft: '10px'}}>Delete</button>
+
                             </td>
                         </tr>)
                 }
