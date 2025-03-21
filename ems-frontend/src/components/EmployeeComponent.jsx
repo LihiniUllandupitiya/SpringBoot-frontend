@@ -1,7 +1,7 @@
 //01.create EmployeeComponent
 
 import React, { useEffect, useState } from 'react'
-import { createEmployee, getEmployee } from '../services/EmployeeService'
+import { createEmployee, getEmployee, updateEmployee } from '../services/EmployeeService'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EmployeeComponent = () => {
@@ -37,21 +37,34 @@ const EmployeeComponent = () => {
     }, [id])
 
     //03.Create JavaScript Function to handle onClick Event(form submit)
-    function SaveEmployee(e){
+    //Update SaveEmployee method as SaveOrUpdateEmployee method to handle both Add and Update Employee operations
+    function SaveEOrUpdatemployee(e){
         e.preventDefault();
 
         //03.Validate form on Submisison
         if(validateForm()){
+            
             const employee = {firstName,lastName,email}
             console.log(employee)
+
+            if(id){
+                updateEmployee(id, employee).then((responce) => {
+                    console.log(responce.data);
+                    navigator('/employees');
+                }).catch(error => {
+                    console.error(error);
+                })
+            }else{
+                //02.Change EmployeeComponent to call EmployeeService method
+                createEmployee(employee).then((responce) => {
+                    console.log(responce.data);
     
-            //02.Change EmployeeComponent to call EmployeeService method
-            createEmployee(employee).then((responce) => {
-                console.log(responce.data);
-    
-                //03.Navigate to List Employees Page After Form Submission Done
-                navigator('/employees')
-            })
+                    //03.Navigate to List Employees Page After Form Submission Done
+                    navigator('/employees')
+                }).catch(error => {
+                    console.error(error);
+                })
+            }
         }
     }
 
@@ -153,7 +166,7 @@ const EmployeeComponent = () => {
                             { errors.email && <div className='invalid-feedback'>{errors.email}</div>}
                         </div>
 
-                        <button className='btn btn-success' onClick={SaveEmployee}>Submit</button>
+                        <button className='btn btn-success' onClick={SaveEOrUpdatemployee}>Submit</button>
                     </form>
                 </div>
             </div>
