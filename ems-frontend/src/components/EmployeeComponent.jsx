@@ -1,6 +1,8 @@
 //01.create EmployeeComponent
 
 import React, { useState } from 'react'
+import { createEmployee } from '../services/EmployeeService'
+import { useNavigate } from 'react-router-dom'
 
 const EmployeeComponent = () => {
 
@@ -10,7 +12,7 @@ const EmployeeComponent = () => {
     const [email, setEmail] = useState('')
 
 
-
+    const navigator = useNavigate();
 
     //03.Create JavaScript Function to handle onClick Event(form submit)
     function SaveEmployee(e){
@@ -18,6 +20,14 @@ const EmployeeComponent = () => {
 
         const employee = {firstName,lastName,email}
         console.log(employee)
+
+        //02.Change EmployeeComponent to call EmployeeService method
+        createEmployee(employee).then((responce) => {
+            console.log(responce.data);
+
+            //03.Navigate to List Employees Page After Form Submission Done
+            navigator('/employees')
+        })
     }
 
   return (
