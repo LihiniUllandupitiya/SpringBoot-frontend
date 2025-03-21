@@ -10,3 +10,6 @@ export const listEmployees = () => axios.get(REST_API_BASE_URL);
 
 //01.write code to call Add Employee REST API using axios
 export const createEmployee = (employee) => axios.post(REST_API_BASE_URL, employee);
+
+//code to call get Employee REST API using axios
+export const getEmployee = (employeeId) => axios.get(REST_API_BASE_URL + '/' + employeeId);

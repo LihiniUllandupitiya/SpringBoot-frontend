@@ -1,7 +1,7 @@
 //01.create EmployeeComponent
 
-import React, { useState } from 'react'
-import { createEmployee } from '../services/EmployeeService'
+import React, { useEffect, useState } from 'react'
+import { createEmployee, getEmployee } from '../services/EmployeeService'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const EmployeeComponent = () => {
@@ -22,6 +22,19 @@ const EmployeeComponent = () => {
 
 
     const navigator = useNavigate();
+
+    //useEffect hook to populate the employee data in the form for update
+    useEffect(() => {
+        if(id){
+            getEmployee(id).then((responce) => {
+                setFirstName(responce.data.firstName);
+                setLastName(responce.data.lastName);
+                setEmail(responce.data.email);
+            }).catch(error => {
+                console.error(error);
+            })
+        }
+    }, [id])
 
     //03.Create JavaScript Function to handle onClick Event(form submit)
     function SaveEmployee(e){
