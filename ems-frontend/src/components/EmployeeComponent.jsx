@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { createEmployee } from '../services/EmployeeService'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const EmployeeComponent = () => {
 
@@ -10,6 +10,8 @@ const EmployeeComponent = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
+
+    const {id} = useParams();
 
     //01.use useState hook to initialize state variables that will hold validation errors
     const [errors,setErrors] = useState({
@@ -73,6 +75,15 @@ const EmployeeComponent = () => {
         return valid;
 
     }
+    
+    //change page title dynamically(Add Employee and Update Employee)
+    function pageTitle(){
+        if(id){
+            return <h2 className='text-center'>Update Employee</h2>
+        }else{
+            <h2 className='text-center'>Add Employee</h2>
+        }
+    }
 
   return (
 
@@ -81,7 +92,9 @@ const EmployeeComponent = () => {
         <br /><br />
         <div className='row'>
             <div className='card col-md-6 offset-md-3 offset-md-3'>
-                <h2 className='text-center'>Add Employee</h2>
+                {
+                    pageTitle()
+                }
                 <div className='card-body'>
                     <form>
 
